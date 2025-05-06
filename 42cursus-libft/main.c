@@ -1,0 +1,73 @@
+#include <stdio.h>
+#include "libft.h"
+
+int main(void)
+{
+    // Pruebas ft_strlen
+    printf("ft_strlen:\n");
+    printf("'' -> %zu\n", ft_strlen(""));
+    printf("'Hello' -> %zu\n", ft_strlen("Hello"));
+
+    // Pruebas ft_isalpha
+    printf("\nft_isalpha:\n");
+    printf("'A' -> %d\n", ft_isalpha('A'));
+    printf("'1' -> %d\n", ft_isalpha('1'));
+
+    // Pruebas ft_strchr
+    char *str = "Hello World";
+    printf("\nft_strchr:\n");
+    printf("Buscar 'W' en '%s': %s\n", str, ft_strchr(str, 'W'));
+    printf("Buscar 'Z' en '%s': %s\n", str, ft_strchr(str, 'Z'));
+
+    // Pruebas ft_strdup
+    char *dup = ft_strdup("Duplication test");
+    if (dup)
+    {
+        printf("\nft_strdup:\nDuplicated string: %s\n", dup);
+        free(dup);
+    }
+    else
+        printf("ft_strdup failed to allocate memory\n");
+
+    // Pruebas ft_substr
+    char *substr = ft_substr("Substring example", 3, 6);
+    if (substr)
+    {
+        printf("\nft_substr:\nSubstring: %s\n", substr);
+        free(substr);
+    }
+    else
+        printf("ft_substr failed to allocate memory\n");
+
+    // Pruebas ft_itoa
+    printf("\nft_itoa:\n");
+    int number = -12345;
+    char *num_str = ft_itoa(number);
+    if (num_str)
+    {
+        printf("itoa(%d) = %s\n", number, num_str);
+        free(num_str);
+    }
+    else
+        printf("ft_itoa failed to allocate memory\n");
+
+    // Prueba lista enlazada (bonus)
+    t_list *list = NULL;
+    t_list *node1 = ft_lstnew("First");
+    t_list *node2 = ft_lstnew("Second");
+    ft_lstadd_back(&list, node1);
+    ft_lstadd_back(&list, node2);
+
+    printf("\nLista enlazada:\n");
+    t_list *cur = list;
+    while (cur)
+    {
+        printf("%s\n", (char *)cur->content);
+        cur = cur->next;
+    }
+
+    // Limpiar lista para evitar fugas (no hay función del para liberar string literal)
+    ft_lstclear(&list, NULL);
+
+    return (0);
+}
