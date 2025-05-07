@@ -1,37 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 16:34:43 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/06 16:34:43 by marvin           ###   ########.fr       */
+/*   Created: 2025/05/07 18:31:27 by marvin            #+#    #+#             */
+/*   Updated: 2025/05/07 18:31:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*  Devuelve NULL si count * size desborda size_t  */
-static int	overflow(size_t count, size_t size)
+t_list	*ft_lstlast(t_list *lst)
 {
-	if (size != 0 && count > ((size_t)-1) / size)
-		return (1);
-	return (0);
-}
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	size_t	total;
-	void	*ptr;
-
-	if (overflow(count, size))
+	if (!lst)
 		return (NULL);
-	total = count * size;
-	ptr = malloc(total);
-	if (!ptr)
-		return (NULL);
-	if (total)
-		ft_bzero(ptr, total);
-	return (ptr);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
 }

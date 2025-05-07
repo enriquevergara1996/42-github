@@ -13,7 +13,9 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <stddef.h> // para size_t
+# include <unistd.h>
+# include <stdlib.h>
+# include <stddef.h>
 
 /*
 ** Estructura para listas enlazadas (parte bonus)

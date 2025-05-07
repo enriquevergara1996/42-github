@@ -10,24 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stddef.h>
+#include "libft.h"
 
 size_t	ft_strlen(const char *s);
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+// Función estática que crea una cadena vacía
+static char	*empty_string(void)
 {
-	size_t	s_len;
-	size_t	i;
-	char	*sub;
+	char	*str;
 
-	if (!s)
-		return (NULL);
-	s_len = ft_strlen(s);
-	if (start >= s_len)
-		return ((char *)malloc(1));
-	if (len > s_len - start)
-		len = s_len - start;
+	str = (char *)malloc(1);
+	if (str)
+		str[0] = '\0';
+	return (str);
+}
+
+// Función estática que realiza la copia substring
+static char	*copy_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*sub;
+	size_t	i;
+
 	sub = (char *)malloc(len + 1);
 	if (!sub)
 		return (NULL);
@@ -37,6 +40,21 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		sub[i] = s[start + i];
 		i++;
 	}
-	sub[len] = '\0';
+	sub[i] = '\0';
 	return (sub);
+}
+
+// Función pública ft_substr
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	size_t	s_len;
+
+	if (!s)
+		return (NULL);
+	s_len = ft_strlen(s);
+	if (start >= s_len)
+		return (empty_string());
+	if (len > s_len - start)
+		len = s_len - start;
+	return (copy_substr(s, start, len));
 }

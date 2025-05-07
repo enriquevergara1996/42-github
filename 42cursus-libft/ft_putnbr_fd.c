@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 16:34:43 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/06 16:34:43 by marvin           ###   ########.fr       */
+/*   Created: 2025/05/07 16:38:14 by marvin            #+#    #+#             */
+/*   Updated: 2025/05/07 16:38:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*  Devuelve NULL si count * size desborda size_t  */
-static int	overflow(size_t count, size_t size)
+void	ft_putnbr_fd(int n, int fd)
 {
-	if (size != 0 && count > ((size_t)-1) / size)
-		return (1);
-	return (0);
-}
+	unsigned int	num;
+	char			c;
 
-void	*ft_calloc(size_t count, size_t size)
-{
-	size_t	total;
-	void	*ptr;
-
-	if (overflow(count, size))
-		return (NULL);
-	total = count * size;
-	ptr = malloc(total);
-	if (!ptr)
-		return (NULL);
-	if (total)
-		ft_bzero(ptr, total);
-	return (ptr);
+	if (n < 0)
+	{
+		write(fd, "-", 1);
+		num = -n;
+	}
+	else
+		num = n;
+	if (num >= 10)
+		ft_putnbr_fd(num / 10, fd);
+	c = (num % 10) + '0';
+	write(fd, &c, 1);
 }
