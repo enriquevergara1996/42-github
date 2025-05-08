@@ -37,10 +37,7 @@ SRCS = \
 	ft_putchar_fd.c \
 	ft_putstr_fd.c \
 	ft_putendl_fd.c \
-	ft_putnbr_fd.c
-
-# Archivos fuente bonus:
-BONUS_SRCS = \
+	ft_putnbr_fd.c \
 	ft_lstnew.c \
 	ft_lstadd_front.c \
 	ft_lstsize.c \
@@ -52,7 +49,6 @@ BONUS_SRCS = \
 	ft_lstmap.c
 
 OBJS = $(SRCS:.c=.o)
-BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
 # Compilar objetos
 %.o: %.c libft.h
@@ -67,14 +63,14 @@ $(NAME): $(OBJS)
 
 # Reglas
 clean:
-	rm -f $(OBJS) $(BONUS_OBJS)
+	rm -f $(OBJS)
 
 fclean: clean
 	rm -f $(NAME) test_libft
 
 re: fclean all
 
-bonus: $(OBJS) $(BONUS_OBJS)
+bonus: $(OBJS)
 	ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
 
 # Reglas para compilar y enlazar el programa de pruebas
