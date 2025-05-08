@@ -116,6 +116,12 @@ char	*get_next_line(int fd)
 	storage = read_and_store(fd, storage);
 	if (!storage)
 		return (NULL);
+	if (*storage == '\0')
+	{
+		free(storage);
+		storage = NULL;
+		return (NULL);
+	}
 	line = extract_line(storage);
 	if (!line)
 	{
