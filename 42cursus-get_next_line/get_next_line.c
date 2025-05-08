@@ -77,6 +77,11 @@ char	*update_storage(char *storage)
 		free(storage);
 		return (new_storage);
 	}
+	if (storage && *storage == '\n')
+	{
+		free(storage);
+		return (NULL);
+	}
 	free(storage);
 	return (NULL);
 }
