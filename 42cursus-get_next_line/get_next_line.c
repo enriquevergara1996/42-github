@@ -79,9 +79,10 @@ static char	*ft_read_and_store(int fd, char *storage)
 
 char	*get_next_line(int fd)
 {
-	static char	*storage = NULL;
+	static char	*storage;
 	char		*line;
 
+	storage = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	storage = ft_read_and_store(fd, storage);
