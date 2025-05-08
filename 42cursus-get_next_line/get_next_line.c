@@ -90,8 +90,9 @@ char	*update_storage(char *storage)
 
 	if (storage && *storage == '\n')
 	{
+		new_storage = ft_strdup(storage + 1);
 		free(storage);
-		return (NULL);
+		return (new_storage);
 	}
 	newline = ft_strchr(storage, '\n');
 	if (newline)
