@@ -12,7 +12,16 @@
 
 #include "get_next_line.h"
 
-// Helper function to find newline character
+size_t	ft_strlen(const char *str)
+{
+	size_t	len;
+
+	len = 0;
+	while (str[len])
+		len++;
+	return (len);
+}
+
 char	*ft_strchr(const char *s, int c)
 {
 	while (*s)
@@ -24,38 +33,6 @@ char	*ft_strchr(const char *s, int c)
 	if ((char)c == '\0')
 		return ((char *)s);
 	return (NULL);
-}
-
-size_t	ft_strlen(const char *str)
-{
-	size_t	len;
-
-	len = 0;
-	while (str[len])
-		len++;
-	return (len);
-}
-
-char	*ft_strjoin(char *s1, char *s2)
-{
-	size_t	len1;
-	size_t	len2;
-	char	*result;
-
-	if (!s1)
-		return (ft_strdup(s2));
-	if (!s2)
-		return (s1);
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	result = malloc(len1 + len2 + 1);
-	if (!result)
-		return (NULL);
-	ft_memcpy(result, s1, len1);
-	ft_memcpy(result + len1, s2, len2);
-	result[len1 + len2] = '\0';
-	free(s1);
-	return (result);
 }
 
 char	*ft_strdup(const char *s)
@@ -84,4 +61,31 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	while (n--)
 		*d++ = *s++;
 	return (dest);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	size_t	len1;
+	size_t	len2;
+	char	*result;
+
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (s1);
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	result = malloc(len1 + len2 + 1);
+	if (!result)
+	{
+		free(s1);
+		return (NULL);
+	}
+	ft_memcpy(result, s1, len1);
+	ft_memcpy(result + len1, s2, len2);
+	result[len1 + len2] = '\0';
+	free(s1);
+	return (result);
 }
