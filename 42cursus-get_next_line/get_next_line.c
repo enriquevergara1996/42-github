@@ -41,12 +41,21 @@ char	*read_and_store(int fd, char *storage)
 	return (storage);
 }
 
-char	*extract_line(char *storage)
+static char	*extract_newline(char *storage)
 {
 	char	*line;
 	char	*newline;
 	size_t	line_len;
 
+	if (storage && *storage == '\n')
+	{
+		line = malloc(2);
+		if (!line)
+			return (NULL);
+		line[0] = '\n';
+		line[1] = '\0';
+		return (line);
+	}
 	newline = ft_strchr(storage, '\n');
 	if (newline)
 	{
@@ -58,6 +67,16 @@ char	*extract_line(char *storage)
 		line[line_len] = '\0';
 		return (line);
 	}
+	return (NULL);
+}
+
+char	*extract_line(char *storage)
+{
+	char	*line;
+
+	line = extract_newline(storage);
+	if (line)
+		return (line);
 	if (storage && *storage)
 		return (ft_strdup(storage));
 	return (NULL);
@@ -69,6 +88,11 @@ char	*update_storage(char *storage)
 	char	*new_storage;
 	size_t	line_len;
 
+	if (storage && *storage == '\n')
+	{
+		free(storage);
+		return (NULL);
+	}
 	newline = ft_strchr(storage, '\n');
 	if (newline)
 	{
